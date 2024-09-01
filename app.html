@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHNTM Music App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6e45e2, #88d3ce);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        #player {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            background: #6e45e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="player">
+        <h1>PHNTM Music Player</h1>
+        <audio id="audio" controls></audio>
+        <div>
+            <button id="playPause">Play/Pause</button>
+            <button id="prev">Previous</button>
+            <button id="next">Next</button>
+        </div>
+        <div id="playlist"></div>
+    </div>
+    <script>
+        // We'll add JavaScript here in the next step
+    </script>
+</body>
+</html>
