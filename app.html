@@ -6,6 +6,11 @@
     <title>PHNTM Music App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#800080">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PHNTM Music App">
+    <link rel="apple-touch-icon" href="images/phntm-icon.png">
 </head>
 <body>
     <div class="container">
@@ -27,182 +32,20 @@
             </div>
         </div>
     </div>
-body {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-    font-family: 'Helvetica Neue', sans-serif; /* Clean, modern font */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.container {
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-}
-
-.album-art-container {
-    margin: 20px 0;
-}
-
-.album-art {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.waveform {
-    margin-top: 20px;
-    height: 5px;
-    background: linear-gradient(90deg, #800080, #a020f0); /* Purple gradient */
-    border-radius: 10px;
-    width: 80%;
-    margin: auto;
-}
-
-.playback-controls {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-}
-
-.button img {
-    width: 40px;
-    height: 40px;
-}
-
-.button:hover {
-    background-color: rgba(128, 0, 128, 0.2); /* Slight purple highlight on hover */
-}
-
-.click-wheel {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    height: 300px;
-    margin: auto;
-    background-color: #1a1a1a;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.menu-btn {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
-    font-size: 16px;
-}
-
-.wheel {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, #000 60%, #1a1a1a 61%);
-    border-radius: 50%;
-}
-document.addEventListener('DOMContentLoaded', function() {
-    var sound = new Howl({
-        src: ['audio/song.mp3'], // Use your song path or playlist
-        html5: true, // Enable HTML5 Audio to ensure compatibility
-    });
-
-    var playPauseBtn = document.getElementById('playPauseBtn');
-    var prevBtn = document.getElementById('prevBtn');
-    var nextBtn = document.getElementById('nextBtn');
-
-    playPauseBtn.addEventListener('click', function() {
-        if (sound.playing()) {
-            sound.pause();
-            playPauseBtn.querySelector('img').src = 'images/play-icon.png';
-        } else {
-            sound.play();
-            playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-        }
-    });
-
-    prevBtn.addEventListener('click', function() {
-        // Logic for playing previous song
-        console.log('Previous song');
-    });
-
-    nextBtn.addEventListener('click', function() {
-        // Logic for playing next song
-        console.log('Next song');
-    });
-
-    // Add logic for click wheel functionality if desired
-});
-{
-    "name": "PHNTM Music App",
-    "short_name": "PHNTM",
-    "start_url": "app.html",
-    "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#800080",
-    "icons": [
-        {
-            "src": "images/phntm-icon.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "images/phntm-icon-large.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
-}
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-        caches.open('phntm-cache').then(function(cache) {
-            return cache.addAll([
-                '/',
-                'app.html',
-                'css/style.css',
-                'js/main.js',
-                'js/howler.min.js',
-                'images/album-art.jpg',
-                'images/play-icon.png',
-                'images/pause-icon.png',
-                'images/prev-icon.png',
-                'images/next-icon.png',
-                'audio/song.mp3' // Add paths for default audio files
-            ]);
-        })
-    );
-});
-
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
-});
 
     <script src="js/howler.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="service-worker.js"></script>
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
