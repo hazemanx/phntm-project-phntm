@@ -47,3 +47,54 @@
     </script>
 </body>
 </html>
+<script>
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPause');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const playlist = document.getElementById('playlist');
+
+    const songs = [
+        {title: 'Song 1', src: 'https://example.com/song1.mp3'},
+        {title: 'Song 2', src: 'https://example.com/song2.mp3'},
+        {title: 'Song 3', src: 'https://example.com/song3.mp3'}
+    ];
+
+    let currentSong = 0;
+
+    function loadSong(index) {
+        audio.src = songs[index].src;
+        audio.load();
+    }
+
+    function updatePlaylist() {
+        playlist.innerHTML = songs.map((song, index) => 
+            `<div>${song.title} ${index === currentSong ? '(current)' : ''}</div>`
+        ).join('');
+    }
+
+    playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentSong = (currentSong - 1 + songs.length) % songs.length;
+        loadSong(currentSong);
+        audio.play();
+        updatePlaylist();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentSong = (currentSong + 1) % songs.length;
+        loadSong(currentSong);
+        audio.play();
+        updatePlaylist();
+    });
+
+    loadSong(currentSong);
+    updatePlaylist();
+</script>
