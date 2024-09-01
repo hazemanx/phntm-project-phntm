@@ -4,143 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHNTM Music App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #6e45e2, #88d3ce);
-            color: white;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        #player {
-            max-width: 400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        button {
-            background: #6e45e2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div id="player">
-        <h1>PHNTM Music Player</h1>
-        <audio id="audio" controls></audio>
-        <div>
-            <button id="playPause">Play/Pause</button>
-            <button id="prev">Previous</button>
-            <button id="next">Next</button>
+    <div class="container">
+        <div class="album-art-container">
+            <img src="images/album-art.jpg" alt="Album Art" class="album-art">
         </div>
-        <div id="playlist"></div>
+        <div class="waveform"></div>
+        <div class="playback-controls">
+            <button id="prevBtn" class="button"><img src="images/prev-icon.png" alt="Previous"></button>
+            <button id="playPauseBtn" class="button"><img src="images/play-icon.png" alt="Play"></button>
+            <button id="nextBtn" class="button"><img src="images/next-icon.png" alt="Next"></button>
+        </div>
+        <div class="click-wheel">
+            <div class="menu-btn">MENU</div>
+            <div class="wheel">
+                <div class="button-up"></div>
+                <div class="button-center"></div>
+                <div class="button-down"></div>
+            </div>
+        </div>
     </div>
-    <script>
-        const audio = document.getElementById('audio');
-    const playPauseBtn = document.getElementById('playPause');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    const playlist = document.getElementById('playlist');
 
-    const songs = [
-        {title: 'Song 1', src: 'https://example.com/song1.mp3'},
-        {title: 'Song 2', src: 'https://example.com/song2.mp3'},
-        {title: 'Song 3', src: 'https://example.com/song3.mp3'}
-    ];
-
-    let currentSong = 0;
-
-    function loadSong(index) {
-        audio.src = songs[index].src;
-        audio.load();
-    }
-
-    function updatePlaylist() {
-        playlist.innerHTML = songs.map((song, index) => 
-            `<div>${song.title} ${index === currentSong ? '(current)' : ''}</div>`
-        ).join('');
-    }
-
-    playPauseBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
-    });
-
-    prevBtn.addEventListener('click', () => {
-        currentSong = (currentSong - 1 + songs.length) % songs.length;
-        loadSong(currentSong);
-        audio.play();
-        updatePlaylist();
-    });
-
-    nextBtn.addEventListener('click', () => {
-        currentSong = (currentSong + 1) % songs.length;
-        loadSong(currentSong);
-        audio.play();
-        updatePlaylist();
-    });
-
-    loadSong(currentSong);
-    updatePlaylist();
-</script>
- <canvas id="visualizer"></canvas>
-<script>
-// Add this to the existing script or create a new script tag
-const canvas = document.getElementById('visualizer');
-const ctx = canvas.getContext('2d');
-let audioContext, analyser, source;
-
-function setupAudioContext() {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioContext.createAnalyser();
-    source = audioContext.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioContext.destination);
-}
-
-function visualize() {
-    canvas.width = window.innerWidth;
-    canvas.height = 200;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    function draw() {
-        requestAnimationFrame(draw);
-        analyser.getByteFrequencyData(dataArray);
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        const barWidth = (canvas.width / bufferLength) * 2.5;
-        let x = 0;
-        for(let i = 0; i < bufferLength; i++) {
-            const barHeight = dataArray[i] / 2;
-            ctx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
-            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-            x += barWidth + 1;
-        }
-    }
-    draw();
-}
-
-playPauseBtn.addEventListener('click', () => {
-    if (audioContext === undefined) {
-        setupAudioContext();
-        visualize();
-    }
-    // ... (existing play/pause logic)
-});
-</script>
-    </script>
+    <script src="js/howler.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="service-worker.js"></script>
 </body>
 </html>
-<script>
-   
