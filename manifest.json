@@ -1,0 +1,21 @@
+{
+    "name": "PHNTM Music App",
+    "short_name": "PHNTM",
+    "description": "Experience your favorite tunes like never before with the PHNTM Music App.",
+    "start_url": "app.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#800080",
+    "icons": [
+        {
+            "src": "images/phntm-icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/phntm-icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
