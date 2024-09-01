@@ -5,27 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHNTM Music App</title>
     <link rel="stylesheet" href="css/style.css">
- <link rel="manifest" href="manifest.json">
- <meta name="theme-color" content="#800080">
- <meta name="apple-mobile-web-app-capable" content="yes">
- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
- <meta name="apple-mobile-web-app-title" content="PHNTM Music App">
- <link rel="apple-touch-icon" href="images/phntm-icon.png">
-
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#800080">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="PHNTM Music App">
     <link rel="apple-touch-icon" href="images/phntm-icon.png">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <h1>Welcome to PHNTM Music App</h1>
-    <p>Experience music like never before. Install PHNTM on your device and enjoy offline playback.</p>
-    <a href="app.html" class="button">Open PHNTM App</a>
+    <div class="hero-section">
+        <img src="images/phntm-icon.png" alt="PHNTM Logo" class="logo">
+        <h1>PHNTM Music App</h1>
+        <p>Experience music like never before. Download the PHNTM app and take your tunes wherever you go!</p>
+        <a href="app.html" class="download-button">Download PHNTM App</a>
+    </div>
 
-    <!-- Add to home screen instructions for iOS users -->
-    <p>For iOS users, tap <img src="images/share-icon.png" alt="Share Icon" style="height: 16px; vertical-align: middle;"> and select "Add to Home Screen".</p>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .hero-section {
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .download-button {
+            background-color: #800080;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .download-button:hover {
+            background-color: #a020f0;
+        }
+    </style>
 
     <script>
         // Register service worker for PWA functionality
