@@ -13,118 +13,50 @@
     <link rel="apple-touch-icon" href="images/phntm-icon.png">
 </head>
 <body>
-    <div class="container">
-        <div class="album-art-container">
-            <img src="images/album-art.jpg" alt="Album Art" class="album-art">
+    <header class="app-header">
+        <h1>Library</h1>
+        <div class="header-buttons">
+            <button id="edit-btn">Edit</button>
+            <button id="profile-btn"><img src="images/profile-icon.png" alt="Profile"></button>
         </div>
-        <div class="waveform"></div>
-        <div class="playback-controls">
-            <button id="prevBtn" class="button"><img src="images/prev-icon.png" alt="Previous"></button>
-            <button id="playPauseBtn" class="button"><img src="images/play-icon.png" alt="Play"></button>
-            <button id="nextBtn" class="button"><img src="images/next-icon.png" alt="Next"></button>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#">Playlists</a></li>
+            <li><a href="#">Artists</a></li>
+            <li><a href="#">Albums</a></li>
+            <li><a href="#">Made for You</a></li>
+            <li><a href="#">Songs</a></li>
+            <li><a href="#">Genres</a></li>
+            <li><a href="#">Downloaded</a></li>
+        </ul>
+    </nav>
+    <section class="recently-added">
+        <h2>Recently Added</h2>
+        <div class="album-grid">
+            <img src="images/album1.jpg" alt="Album 1">
+            <img src="images/album2.jpg" alt="Album 2">
+            <!-- Add more albums as needed -->
         </div>
-        <div class="controls">
-            <label for="speedControl">Speed:</label>
-            <input type="range" id="speedControl" min="0.5" max="2" value="1" step="0.1">
-            <label for="pitchControl">Pitch:</label>
-            <input type="range" id="pitchControl" min="-1" max="1" value="0" step="0.1">
+    </section>
+    <footer class="music-player">
+        <div class="player-info">
+            <img src="images/playing-album.jpg" alt="Currently Playing Album">
+            <div class="player-text">
+                <p class="song-title">Still Got Money (feat. Valee)</p>
+                <p class="artist-name">Artist Name</p>
+            </div>
         </div>
-        <input type="file" id="filePicker" accept="audio/*" style="display: none;">
-        <button id="filePickerBtn" class="button">Choose Local Music</button>
-    </div>
+        <div class="player-controls">
+            <button id="prev-btn"><img src="images/prev-icon.png" alt="Previous"></button>
+            <button id="play-pause-btn"><img src="images/play-icon.png" alt="Play"></button>
+            <button id="next-btn"><img src="images/next-icon.png" alt="Next"></button>
+        </div>
+    </footer>
 
     <script src="js/howler.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
-        let sound;
-        const playlist = [];
-        let currentTrackIndex = 0;
-        let playbackRate = 1;
-        let pitch = 0;
-
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const speedControl = document.getElementById('speedControl');
-        const pitchControl = document.getElementById('pitchControl');
-        const filePicker = document.getElementById('filePicker');
-        const filePickerBtn = document.getElementById('filePickerBtn');
-
-        playPauseBtn.addEventListener('click', function() {
-            if (sound && sound.playing()) {
-                sound.pause();
-                playPauseBtn.querySelector('img').src = 'images/play-icon.png';
-            } else if (sound) {
-                sound.play();
-                playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-            } else if (playlist.length > 0) {
-                loadTrack(playlist[currentTrackIndex]);
-                sound.play();
-                playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-            }
-        });
-
-        prevBtn.addEventListener('click', function() {
-            previousTrack();
-        });
-
-        nextBtn.addEventListener('click', function() {
-            nextTrack();
-        });
-
-        speedControl.addEventListener('input', function() {
-            playbackRate = parseFloat(this.value);
-            if (sound) {
-                sound.rate(playbackRate);
-            }
-        });
-
-        pitchControl.addEventListener('input', function() {
-            pitch = parseFloat(this.value);
-            if (sound) {
-                sound.rate(playbackRate + pitch);
-            }
-        });
-
-        filePickerBtn.addEventListener('click', function() {
-            filePicker.click();
-        });
-
-        filePicker.addEventListener('change', function(event) {
-            const files = event.target.files;
-            if (files.length > 0) {
-                const fileURL = URL.createObjectURL(files[0]);
-                playlist.push(fileURL);
-                currentTrackIndex = playlist.length - 1;
-                loadTrack(fileURL);
-            }
-        });
-
-        function loadTrack(src) {
-            if (sound) sound.unload();
-            sound = new Howl({
-                src: [src],
-                html5: true,
-                rate: playbackRate + pitch,
-                onend: function() {
-                    nextTrack();
-                }
-            });
-        }
-
-        function nextTrack() {
-            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-            loadTrack(playlist[currentTrackIndex]);
-            sound.play();
-            playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-        }
-
-        function previousTrack() {
-            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-            loadTrack(playlist[currentTrackIndex]);
-            sound.play();
-            playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-        }
-
         // Register service worker for PWA functionality
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -138,3 +70,161 @@
     </script>
 </body>
 </html>
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.app-header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-buttons button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #1a1a1a;
+}
+
+.main-nav ul li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.main-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.recently-added {
+    padding: 15px;
+}
+
+.recently-added h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.album-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.album-grid img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+.music-player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+}
+
+.player-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.player-text {
+    margin-left: 10px;
+}
+
+.player-controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.player-controls img {
+    width: 30px;
+    height: 30px;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var sound = new Howl({
+        src: ['audio/song.mp3'], // Replace with your song path or playlist
+        html5: true, // Ensure compatibility with mobile devices
+    });
+
+    var playPauseBtn = document.getElementById('play-pause-btn');
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+
+    playPauseBtn.addEventListener('click', function() {
+        if (sound.playing()) {
+            sound.pause();
+            playPauseBtn.querySelector('img').src = 'images/play-icon.png';
+        } else {
+            sound.play();
+            playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
+        }
+    });
+
+    prevBtn.addEventListener('click', function() {
+        // Logic for playing the previous song
+    });
+
+    nextBtn.addEventListener('click', function() {
+        // Logic for playing the next song
+    });
+});
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open('phntm-cache').then(function(cache) {
+            return cache.addAll([
+                '/',
+                'app.html',
+                'css/style.css',
+                'js/main.js',
+                'js/howler.min.js',
+                'images/phntm-icon.png',
+                // Add other assets to cache as needed
+            ]);
+        })
+    );
+});
+
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
+        })
+    );
+});
