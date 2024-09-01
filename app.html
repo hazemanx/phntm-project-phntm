@@ -5,6 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHNTM Music App</title>
     <link rel="stylesheet" href="css/style.css">
+    <meta name="theme-color" content="#800080">
+    <link rel="apple-touch-icon" href="images/phntm-icon.png">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="hero-section">
+        <img src="images/phntm-icon.png" alt="PHNTM Logo" class="logo">
+        <h1>PHNTM Music App</h1>
+        <p>Experience music like never before. Download the PHNTM app and take your tunes wherever you go!</p>
+        <a href="app.html" class="download-button">Download PHNTM App</a>
+    </div>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .hero-section {
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .download-button {
+            background-color: #800080;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .download-button:hover {
+            background-color: #a020f0;
+        }
+    </style>
+
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHNTM Music App</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#800080">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -78,6 +160,43 @@ body {
     padding: 0;
 }
 
+.hero-section, .container {
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.download-button {
+    background-color: #800080;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: #a020f0;
+}
+
 .app-header {
     background-color: #1a1a1a;
     color: #fff;
@@ -90,14 +209,6 @@ body {
 .header-buttons {
     display: flex;
     gap: 10px;
-}
-
-.header-buttons button {
-    background: none;
-    border: none;
-    color: red;
-    font-size: 16px;
-    cursor: pointer;
 }
 
 .main-nav ul {
@@ -177,54 +288,9 @@ body {
     width: 30px;
     height: 30px;
 }
-document.addEventListener('DOMContentLoaded', function() {
-    var sound = new Howl({
-        src: ['audio/song.mp3'], // Replace with your song path or playlist
-        html5: true, // Ensure compatibility with mobile devices
-    });
-
-    var playPauseBtn = document.getElementById('play-pause-btn');
-    var prevBtn = document.getElementById('prev-btn');
-    var nextBtn = document.getElementById('next-btn');
-
-    playPauseBtn.addEventListener('click', function() {
-        if (sound.playing()) {
-            sound.pause();
-            playPauseBtn.querySelector('img').src = 'images/play-icon.png';
-        } else {
-            sound.play();
-            playPauseBtn.querySelector('img').src = 'images/pause-icon.png';
-        }
-    });
-
-    prevBtn.addEventListener('click', function() {
-        // Logic for playing the previous song
-    });
-
-    nextBtn.addEventListener('click', function() {
-        // Logic for playing the next song
-    });
-});
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-        caches.open('phntm-cache').then(function(cache) {
-            return cache.addAll([
-                '/',
-                'app.html',
-                'css/style.css',
-                'js/main.js',
-                'js/howler.min.js',
-                'images/phntm-icon.png',
-                // Add other assets to cache as needed
-            ]);
-        })
-    );
-});
-
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
-});
+{
+    "name": "PHNTM Music App",
+    "short_name": "PHNTM",
+    "start_url": "app.html",
+    "display": "standalone",
+    "background_color": "#000000
