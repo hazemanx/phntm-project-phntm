@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#800080">
-    <link rel="apple-touch-icon" href="images/phntm-icon.png">
+    <link rel="apple-touch-icon" href="images/phntm-icon-192.png">
 </head>
 <body>
     <div class="hero-section">
-        <img src="images/phntm-icon.png" alt="PHNTM Logo" class="logo">
+        <img src="images/phntm-icon-192.png" alt="PHNTM Logo" class="logo">
         <h1>PHNTM Music App</h1>
         <p>Experience your favorite tunes like never before. Download the PHNTM app now!</p>
-        <a href="app.html" class="download-button">Download PHNTM App</a>
+        <a href="app.html" class="download-button">Open PHNTM App</a>
+        <a href="PHNTM_Music_App.zip" class="download-button">Download PHNTM App</a>
     </div>
 
     <style>
@@ -59,6 +60,8 @@
             border-radius: 5px;
             font-size: 18px;
             transition: background-color 0.3s;
+            display: block;
+            margin: 10px auto;
         }
 
         .download-button:hover {
@@ -71,9 +74,9 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    console.log('Service Worker registered with scope:', registration.scope);
                 }, function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
+                    console.log('Service Worker registration failed:', err);
                 });
             });
         }
