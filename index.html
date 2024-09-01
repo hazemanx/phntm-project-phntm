@@ -4,68 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHNTM Music App</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #6e45e2, #88d3ce);
-            min-height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #6e45e2;
-            text-align: center;
-        }
-        .feature {
-            margin-bottom: 20px;
-        }
-        .download-button {
-            display: block;
-            background-color: #6e45e2;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#800080">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PHNTM Music App">
+    <link rel="apple-touch-icon" href="images/phntm-icon.png">
 </head>
 <body>
-    <div class="container">
-        <h1>PHNTM Music App</h1>
-        <p>Experience music like never before with PHNTM, the revolutionary music app inspired by classic iPods and modern streaming services.</p>
-        
-        <div class="feature">
-            <h3>Local & Streaming</h3>
-            <p>Play your local files and stream from SoundCloud</p>
-        </div>
-        <div class="feature">
-            <h3>Retro Interface</h3>
-            <p>Enjoy our iPod-inspired click wheel navigation</p>
-        </div>
-        <div class="feature">
-            <h3>Cover Art Editor</h3>
-            <p>Customize your album artwork with built-in editing tools</p>
-        </div>
+    <h1>Welcome to PHNTM Music App</h1>
+    <p>Experience music like never before. Install PHNTM on your device and enjoy offline playback.</p>
+    <a href="app.html" class="button">Open PHNTM App</a>
 
-        <h2>How to Download</h2>
-        <ol>
-            <li>Tap the download button below</li>
-            <li>Select "Add to Home Screen" from the share menu</li>
-            <li>Name the app and tap "Add"</li>
-            <li>Find PHNTM on your home screen and enjoy!</li>
-        </ol>
-        <a href="#" class="download-button">Download PHNTM</a>
-    </div>
+    <!-- Add to home screen instructions for iOS users -->
+    <p>For iOS users, tap <img src="images/share-icon.png" alt="Share Icon" style="height: 16px; vertical-align: middle;"> and select "Add to Home Screen".</p>
+
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
-</html> 
+</html>
